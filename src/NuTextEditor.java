@@ -153,14 +153,12 @@ public class NuTextEditor extends JFrame implements ActionListener {
         }
 
         Style styledDoc = textArea.addStyle("", null);
-        if (styleType.equals("bold"))
-            StyleConstants.setBold(styledDoc, true);
-        else if (styleType.equals("italics"))
-            StyleConstants.setItalic(styledDoc, true);
-        else if (styleType.equals("underline"))
-            StyleConstants.setUnderline(styledDoc, true);
-        else if (styleType.equals("strike"))
-            StyleConstants.setStrikeThrough(styledDoc, true);
+        switch (styleType) {
+            case "bold": StyleConstants.setBold(styledDoc, true); break;
+            case "italics": StyleConstants.setItalic(styledDoc, true); break;
+            case "underline": StyleConstants.setUnderline(styledDoc, true); break;
+            case "strike": StyleConstants.setStrikeThrough(styledDoc, true); break;
+        }
         sDoc.setCharacterAttributes(selStart, selEnd - selStart, styledDoc, false);
     }
 }
