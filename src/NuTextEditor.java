@@ -18,7 +18,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
     private JTextPane textArea = new JTextPane();
     private MenuBar menuBar = new MenuBar();
 
-    private JScrollPane jScrollPane = new JScrollPane(textArea);
+    private JScrollPane jScrollPane = new JScrollPane(textArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     private Menu file = new Menu();
     private MenuItem openFile = new MenuItem();
@@ -32,7 +32,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
     private MenuItem strikeThrough = new MenuItem();
 
     public NuTextEditor() {
-        this.setSize(900, 500);
+        this.setSize(700, 500);
         this.setTitle("NuText - Untitled Document");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.textArea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -82,7 +82,8 @@ public class NuTextEditor extends JFrame implements ActionListener {
         this.strikeThrough.setShortcut(new MenuShortcut(KeyEvent.VK_R, false));
         this.selection.add(this.strikeThrough);
 
-        this.getContentPane().add(this.jScrollPane, BorderLayout.CENTER);
+        this.jScrollPane.setViewportView(this.textArea);
+        this.getContentPane().add(this.jScrollPane);
     }
 
     public void actionPerformed(ActionEvent e) {
