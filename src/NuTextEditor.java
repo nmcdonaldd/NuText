@@ -100,9 +100,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
             setStyle("underline");
     }
 
-    private void closeDocument() {
-        this.dispose();
-    }
+    private void closeDocument() { this.dispose(); }
 
     private void openFile() {
         JFileChooser open = new JFileChooser();
