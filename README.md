@@ -5,14 +5,14 @@ A (very) small text editor written in Java. This is a small project I am working
 ### What Works
 + Opening a document.
 + Saving a document.
-+ Bolding/italicizing/underlining/striking-through text that is already selected.
++ Bolding/italicizing/underlining text that is already selected. (As of 1fde27e4f13ba8fb3de0e34ba9b5c4c308d18560)
++ Font selection. (As of 1fde27e4f13ba8fb3de0e34ba9b5c4c308d18560)
 
 ### What Doesn't Work (Yet)
-+ Changing the style of text that you want to write currently (i.e. changing RTF attributes and have it write new text with those attributes. Currently, you have to select the text you want to be changed).
++ Changing the style of text that you want to write currently (i.e. changing RTF attributes and have it write new text with those attributes. Currently, you have to select the text you want to be changed and then select how you want it changed).
 
 ### What is Coming Up
 + Printing capabilities?
 + Different tabs.
-+ Font selection.
 + Color selection
 + Menu bar.
