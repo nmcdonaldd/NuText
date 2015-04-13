@@ -8,6 +8,7 @@
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.text.rtf.RTFEditorKit;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
     private MenuItem strikeThrough = new MenuItem();
 
     public NuTextEditor() {
-        this.setSize(500, 300);
+        this.setSize(900, 500);
         this.setTitle("NuText - Untitled Document");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.textArea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -109,12 +110,10 @@ public class NuTextEditor extends JFrame implements ActionListener {
         if(option == JFileChooser.APPROVE_OPTION) {
             this.textArea.setText("");
             this.setTitle("NuText - " + open.getName(open.getSelectedFile()));
+            RTFEditorKit openKit = new RTFEditorKit();
 
             try {
-                Scanner scanner = new Scanner(new FileReader(open.getSelectedFile().getPath()));
-                while(scanner.hasNext()) {
-                    //this.textArea.append(scanner.nextLine() + "\n");
-                }
+                openKit.read(new FileInputStream(open.getSelectedFile()), textArea.getStyledDocument(), 0);
             } catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -127,11 +126,10 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
         if(option == JFileChooser.APPROVE_OPTION) {
             this.setTitle("NuText - " + save.getName(save.getSelectedFile()));
+            RTFEditorKit closeKit = new RTFEditorKit();
 
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(save.getSelectedFile().getPath()));
-                out.write(this.textArea.getText());
-                out.close();
+                closeKit.write(new FileOutputStream(save.getSelectedFile()), textArea.getStyledDocument(), 0, textArea.getStyledDocument().getEndPosition().getOffset());
             } catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
