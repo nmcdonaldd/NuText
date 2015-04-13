@@ -11,14 +11,16 @@ import javax.swing.text.*;
 import javax.swing.text.rtf.RTFEditorKit;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 import java.io.*;
 
 public class NuTextEditor extends JFrame implements ActionListener {
     private JTextPane textArea = new JTextPane();
+
     private MenuBar menuBar = new MenuBar();
+    private JMenuBar jMenuBar = new JMenuBar();
 
     private JScrollPane jScrollPane = new JScrollPane(textArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    private JComboBox fontsMenu;
 
     private Menu file = new Menu();
     private MenuItem openFile = new MenuItem();
@@ -29,13 +31,16 @@ public class NuTextEditor extends JFrame implements ActionListener {
     private MenuItem bold = new MenuItem();
     private MenuItem italics = new MenuItem();
     private MenuItem underline = new MenuItem();
-    private MenuItem strikeThrough = new MenuItem();
+
+    //defaults
+    private String defaultFont = "Times New Roman";
+    //private String defaultColor = "black";
 
     public NuTextEditor() {
         this.setSize(700, 500);
-        this.setTitle("NuText - Untitled Document");
+        this.setTitle("Untitled Document");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.textArea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        this.textArea.setFont(new Font(this.defaultFont, Font.PLAIN, 14));
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(textArea);
@@ -77,13 +82,15 @@ public class NuTextEditor extends JFrame implements ActionListener {
         this.underline.setShortcut(new MenuShortcut(KeyEvent.VK_U, false));
         this.selection.add(this.underline);
 
-        this.strikeThrough.setLabel("Strike-Through");
-        this.strikeThrough.addActionListener(this);
-        this.strikeThrough.setShortcut(new MenuShortcut(KeyEvent.VK_R, false));
-        this.selection.add(this.strikeThrough);
-
         this.jScrollPane.setViewportView(this.textArea);
         this.getContentPane().add(this.jScrollPane);
+        this.setJMenuBar(jMenuBar);
+
+        this.fontsMenu = new JComboBox(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
+        this.jMenuBar.add(fontsMenu);
+        this.fontsMenu.setMaximumSize(fontsMenu.getPreferredSize());
+        this.fontsMenu.setSelectedItem(this.defaultFont);
+        this.fontsMenu.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -104,6 +111,9 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
         else if(e.getSource() == this.underline)
             setStyle("underline");
+
+        else if(e.getSource() == this.fontsMenu)
+            setStyle("font");
     }
 
     private void closeDocument() { this.dispose(); }
@@ -114,7 +124,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
         if(option == JFileChooser.APPROVE_OPTION) {
             this.textArea.setText("");
-            this.setTitle("NuText - " + open.getName(open.getSelectedFile()));
+            this.setTitle(open.getName(open.getSelectedFile()));
             RTFEditorKit openKit = new RTFEditorKit();
 
             try {
@@ -130,7 +140,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
         int option = save.showSaveDialog(this);
 
         if(option == JFileChooser.APPROVE_OPTION) {
-            this.setTitle("NuText - " + save.getName(save.getSelectedFile()));
+            this.setTitle(save.getName(save.getSelectedFile()));
             RTFEditorKit closeKit = new RTFEditorKit();
 
             try {
@@ -155,13 +165,13 @@ public class NuTextEditor extends JFrame implements ActionListener {
             selStart = temp;
         }
 
-        Style styledDoc = textArea.addStyle("", null);
+        Style style = textArea.addStyle("", null);
         switch (styleType) {
-            case "bold": StyleConstants.setBold(styledDoc, true); break;
-            case "italics": StyleConstants.setItalic(styledDoc, true); break;
-            case "underline": StyleConstants.setUnderline(styledDoc, true); break;
-            case "strike": StyleConstants.setStrikeThrough(styledDoc, true); break;
+            case "bold": StyleConstants.setBold(style, true); break;
+            case "italics": StyleConstants.setItalic(style, true); break;
+            case "underline": StyleConstants.setUnderline(style, true); break;
+            case "font": StyleConstants.setFontFamily(style, this.fontsMenu.getSelectedItem().toString()); break;
         }
-        sDoc.setCharacterAttributes(selStart, selEnd - selStart, styledDoc, false);
+        sDoc.setCharacterAttributes(selStart, selEnd - selStart, style, false);
     }
 }
