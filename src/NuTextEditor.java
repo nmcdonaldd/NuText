@@ -6,6 +6,8 @@
  * NuText.java
  */
 
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_COLOR_BURNPeer;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.rtf.RTFEditorKit;
@@ -31,6 +33,10 @@ public class NuTextEditor extends JFrame implements ActionListener {
     private MenuItem bold = new MenuItem();
     private MenuItem italics = new MenuItem();
     private MenuItem underline = new MenuItem();
+
+    private JButton boldButton = new JButton("B");
+    private JButton italicsButton = new JButton("I");
+    private JButton underlineButton = new JButton("U");
 
     //defaults
     private String defaultFont = "Times New Roman";
@@ -87,10 +93,22 @@ public class NuTextEditor extends JFrame implements ActionListener {
         this.setJMenuBar(jMenuBar);
 
         this.fontsMenu = new JComboBox<>(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
-        this.jMenuBar.add(fontsMenu);
-        this.fontsMenu.setMaximumSize(fontsMenu.getPreferredSize());
+        this.jMenuBar.add(this.fontsMenu);
+        this.fontsMenu.setMaximumSize(this.fontsMenu.getPreferredSize());
         this.fontsMenu.setSelectedItem(this.defaultFont);
         this.fontsMenu.addActionListener(this);
+
+        this.jMenuBar.add(this.boldButton);
+        this.boldButton.setMaximumSize(this.boldButton.getPreferredSize());
+        this.boldButton.addActionListener(this);
+
+        this.jMenuBar.add(this.italicsButton);
+        this.italicsButton.setMaximumSize(this.boldButton.getPreferredSize());
+        this.italicsButton.addActionListener(this);
+
+        this.jMenuBar.add(this.underlineButton);
+        this.underlineButton.setMaximumSize(this.underlineButton.getPreferredSize());
+        this.underlineButton.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -103,13 +121,13 @@ public class NuTextEditor extends JFrame implements ActionListener {
         else if(e.getSource() == this.saveFile)
             saveFile();
 
-        else if(e.getSource() == this.bold)
+        else if(e.getSource() == this.bold || e.getSource() == this.boldButton)
             setStyle("bold");
 
-        else if(e.getSource() == this.italics)
+        else if(e.getSource() == this.italics || e.getSource() == this.italicsButton)
             setStyle("italics");
 
-        else if(e.getSource() == this.underline)
+        else if(e.getSource() == this.underline || e.getSource() == this.underlineButton)
             setStyle("underline");
 
         else if(e.getSource() == this.fontsMenu)
