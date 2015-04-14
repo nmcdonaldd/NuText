@@ -86,7 +86,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
         this.getContentPane().add(this.jScrollPane);
         this.setJMenuBar(jMenuBar);
 
-        this.fontsMenu = new JComboBox(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
+        this.fontsMenu = new JComboBox<>(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
         this.jMenuBar.add(fontsMenu);
         this.fontsMenu.setMaximumSize(fontsMenu.getPreferredSize());
         this.fontsMenu.setSelectedItem(this.defaultFont);
