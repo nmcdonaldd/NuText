@@ -23,6 +23,9 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
     private JScrollPane jScrollPane = new JScrollPane(textArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
     private JComboBox fontsMenu;
+    private JComboBox colorMenu;
+
+    private String [] colors = {"black", "blue", "cyan", "darkGray", "gray", "green", "lightGray", "magenta", "orange", "pink", "red", "white", "yellow"};
 
     private Menu file = new Menu();
     private MenuItem openFile = new MenuItem();
@@ -40,7 +43,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
     //defaults
     private String defaultFont = "Times New Roman";
-    //private String defaultColor = "black";
+    private String defaultColor = "black";
 
     public NuTextEditor() {
         this.setSize(700, 500);
@@ -98,6 +101,12 @@ public class NuTextEditor extends JFrame implements ActionListener {
         this.fontsMenu.setSelectedItem(this.defaultFont);
         this.fontsMenu.addActionListener(this);
 
+        this.colorMenu = new JComboBox<>(this.colors);
+        this.jMenuBar.add(this.colorMenu);
+        this.colorMenu.setMaximumSize(this.colorMenu.getPreferredSize());
+        this.colorMenu.setSelectedItem(this.defaultColor);
+        this.colorMenu.addActionListener(this);
+
         this.jMenuBar.add(this.boldButton);
         this.boldButton.setMaximumSize(this.boldButton.getPreferredSize());
         this.boldButton.addActionListener(this);
@@ -132,6 +141,9 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
         else if(e.getSource() == this.fontsMenu)
             setStyle("font");
+
+        else if(e.getSource() == this.colorMenu)
+            setStyle("color");
     }
 
     private void closeDocument() { this.dispose(); }
@@ -189,6 +201,22 @@ public class NuTextEditor extends JFrame implements ActionListener {
             case "italics": StyleConstants.setItalic(style, true); break;
             case "underline": StyleConstants.setUnderline(style, true); break;
             case "font": StyleConstants.setFontFamily(style, this.fontsMenu.getSelectedItem().toString()); break;
+            case "color":
+                switch(this.colorMenu.getSelectedItem().toString()) {
+                    case "black": StyleConstants.setForeground(style, Color.BLACK); break;
+                    case "blue": StyleConstants.setForeground(style, Color.BLUE); break;
+                    case "cyan": StyleConstants.setForeground(style, Color.CYAN); break;
+                    case "darkGray": StyleConstants.setForeground(style, Color.DARK_GRAY); break;
+                    case "gray": StyleConstants.setForeground(style, Color.GRAY); break;
+                    case "green": StyleConstants.setForeground(style, Color.GREEN); break;
+                    case "lightGray": StyleConstants.setForeground(style, Color.LIGHT_GRAY); break;
+                    case "magenta": StyleConstants.setForeground(style, Color.MAGENTA); break;
+                    case "orange": StyleConstants.setForeground(style, Color.ORANGE); break;
+                    case "pink": StyleConstants.setForeground(style, Color.PINK); break;
+                    case "red": StyleConstants.setForeground(style, Color.RED); break;
+                    case "white": StyleConstants.setForeground(style, Color.WHITE); break;
+                    case "yellow": StyleConstants.setForeground(style, Color.YELLOW);
+                }
         }
         sDoc.setCharacterAttributes(selStart, selEnd - selStart, style, false);
     }
