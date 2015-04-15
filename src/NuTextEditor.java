@@ -215,7 +215,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
                     case "pink": StyleConstants.setForeground(style, Color.PINK); break;
                     case "red": StyleConstants.setForeground(style, Color.RED); break;
                     case "white": StyleConstants.setForeground(style, Color.WHITE); break;
-                    case "yellow": StyleConstants.setForeground(style, Color.YELLOW);
+                    case "yellow": StyleConstants.setForeground(style, Color.YELLOW); break;
                 }
         }
         sDoc.setCharacterAttributes(selStart, selEnd - selStart, style, false);
