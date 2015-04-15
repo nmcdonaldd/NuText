@@ -14,6 +14,6 @@ A (very) small text editor written in Java. This is a small project I am working
 ### What Doesn't Work (Yet)
 + Changing the style of text that you want to write currently (i.e. changing RTF attributes and have it write new text with those attributes. Currently, you have to select the text you want to be changed and then select how you want it changed).
 
-### What is Coming Up
-+ Printing capabilities?
+### Possible Updates
++ Printing capabilities.
 + Different tabs.
