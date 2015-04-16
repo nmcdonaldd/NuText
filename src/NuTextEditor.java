@@ -157,7 +157,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
 
         if(option == JFileChooser.APPROVE_OPTION) {
             this.textArea.setText("");
-            this.setTitle(open.getName(open.getSelectedFile()));
+            this.setTitle(open.getName(open.getSelectedFile()) + " - [" + open.getSelectedFile().getPath() + "]");
             RTFEditorKit openKit = new RTFEditorKit();
 
             try {
@@ -173,7 +173,7 @@ public class NuTextEditor extends JFrame implements ActionListener {
         int option = save.showSaveDialog(this);
 
         if(option == JFileChooser.APPROVE_OPTION) {
-            this.setTitle(save.getName(save.getSelectedFile()));
+            this.setTitle(save.getName(save.getSelectedFile()) + " - [" + save.getSelectedFile().getPath() + "]");
             RTFEditorKit closeKit = new RTFEditorKit();
 
             try {
