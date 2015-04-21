@@ -1,5 +1,5 @@
 # NuText Text Editor
-![alt text](http://i.imgur.com/ZQlKKdK.png "NuText Example")
+![alt text](http://i.imgur.com/IIibJV3.png "NuText Example")
 ##### by: Nicholas McDonald (<nmmcdona@ucsd.edu>)
 A (very) small text editor written in Java. This is a small project I am working on in my spare time for fun.
 
